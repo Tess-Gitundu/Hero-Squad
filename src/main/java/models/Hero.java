@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Hero {
@@ -17,6 +18,16 @@ public class Hero {
         this.id = id;
     }
 
+    public static void clearAllHeroes() {
+    }
+
+    public static Hero findById(int idOfHeroToDelete) {
+        return null;
+    }
+
+    public static ArrayList<Hero> getAll() {
+        return null;
+    }
 
 
     @Override
@@ -71,5 +82,12 @@ public class Hero {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    public void deleteHero() {
+    }
+
+    public void update(String newContent) {
     }
 }

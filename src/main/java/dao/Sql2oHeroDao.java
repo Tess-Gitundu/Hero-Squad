@@ -14,7 +14,7 @@ public class Sql2oHeroDao implements HeroDao{
         this.sql2o = sql2o;
     }
 
-    @Override
+
     public void add(Hero hero) {
         String sql = "INSERT INTO heroes (name, age, specialPower, weakness) VALUES (:name, :age, :specialPower, :weakness)";
         try(Connection con = sql2o.open()){
