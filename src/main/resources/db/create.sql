@@ -7,3 +7,10 @@ CREATE TABLE IF NOT EXISTS heroes (
   special_power VARCHAR ,
   weakness varchar
 );
+
+CREATE TABLE IF NOT EXISTS categories (
+  id int PRIMARY KEY auto_increment,
+  name VARCHAR,
+  size int,
+  cause VARCHAR
+);
