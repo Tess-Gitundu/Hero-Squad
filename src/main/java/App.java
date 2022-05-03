@@ -8,6 +8,7 @@ import dao.Sql2oHeroDao;
 import dao.Sql2oSquadDao;
 import models.Hero;
 
+import models.Squad;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -21,7 +22,7 @@ public class App {
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 
-        //get: show all heros in all squads and show all squads
+        //get: show all heroes in all squads and show all squads
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Hero> heroes = heroDao.getAll();
@@ -89,6 +90,17 @@ public class App {
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+
+        //get: show all heroes in all squads and show all squads
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Squad> allSquads = squadDao.getAll();
+            model.put("squads", allSquads);
+            List<Hero> heroes = heroDao.getAll();
+            model.put("heroes", heroes);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
 //        get("/heroes/:id/delete", (req, res) -> {
 //            Map<String, Object> model = new HashMap<>();

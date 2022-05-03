@@ -29,4 +29,8 @@ public class Sql2oSquadDao {
     public Squad findById(int id) {
         return null;
     }
+
+    public List<Squad> getAll() {
+        return null;
+    }
 }
