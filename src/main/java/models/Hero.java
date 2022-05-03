@@ -7,13 +7,17 @@ public class Hero {
     private int age;
     private String specialPower;
     private String weakness;
+    private int id;
 
-    public Hero(String name, int age, String specialPower, String weakness) {
+    public Hero(String name, int age, String specialPower, String weakness, int id) {
         this.name = name;
         this.age = age;
         this.specialPower = specialPower;
         this.weakness = weakness;
+        this.id = id;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -21,6 +25,7 @@ public class Hero {
         if (!(o instanceof Hero)) return false;
         Hero hero = (Hero) o;
         return getName() == hero.getName() &&
+                getId() == hero.getId() &&
                 Objects.equals(getName(), hero.getName());
     }
 
@@ -60,4 +65,11 @@ public class Hero {
         this.weakness = weakness;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

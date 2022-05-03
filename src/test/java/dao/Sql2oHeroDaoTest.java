@@ -4,6 +4,9 @@ import models.Hero;
 import org.sql2o.*;
 import org.junit.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 class Sql2oHeroDaoTest {
     private Sql2oHeroDao heroDao;
     private Connection conn;
@@ -15,9 +18,23 @@ class Sql2oHeroDaoTest {
         heroDao = new Sql2oHeroDao(sql2o);
         conn = sql2o.open();
     }
-
     @After
     public void tearDown() throws Exception {
         conn.close();
     }
+    @Test
+    public void addingCourseSetsId() throws Exception {
+        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1);
+        int originalHeroId = hero.getId();
+        heroDao.add(hero);
+        assertNotEquals(originalHeroId, hero.getId()); //how does this work?
+    }
+    @Test
+    public void existingHeroesCanBeFoundById() throws Exception {
+        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1);
+        heroDao.add(hero);
+        Hero foundHero = heroDao.findById(hero.getId()); //retrieve
+        assertEquals(hero, foundHero);
+    }
+
 }
