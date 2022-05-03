@@ -13,6 +13,8 @@ public class Hero {
         this.weakness = weakness;
     }
 
+
+
     public String getName() {
         return name;
     }
@@ -44,4 +46,5 @@ public class Hero {
     public void setWeakness(String weakness) {
         this.weakness = weakness;
     }
+
 }
