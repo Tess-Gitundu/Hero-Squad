@@ -24,14 +24,14 @@ class Sql2oHeroDaoTest {
     }
     @Test
     public void addingCourseSetsId() throws Exception {
-        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1);
+        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1, 0);
         int originalHeroId = hero.getId();
         heroDao.add(hero);
         assertNotEquals(originalHeroId, hero.getId()); //how does this work?
     }
     @Test
     public void existingHeroesCanBeFoundById() throws Exception {
-        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1);
+        Hero hero = new Hero ("WonderWoman",33,"Strength","Ego" , 1, 0);
         heroDao.add(hero);
         Hero foundHero = heroDao.findById(hero.getId()); //retrieve
         assertEquals(hero, foundHero);

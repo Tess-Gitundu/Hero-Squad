@@ -52,4 +52,7 @@ public class Squad {
         this.cause = cause;
     }
 
+    public int getId() {
+        return 0;
+    }
 }

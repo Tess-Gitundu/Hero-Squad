@@ -17,7 +17,7 @@ class HeroTest {
     }
 
     public Hero setupNewHero() {
-        return new Hero("WonderWoman",33,"Strength","Ego" , 1);
+        return new Hero("WonderWoman",33,"Strength","Ego", 1, 0);
     }
 
 }
