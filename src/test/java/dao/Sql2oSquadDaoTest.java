@@ -2,9 +2,7 @@ package dao;
 
 import models.Hero;
 import models.Squad;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
@@ -14,19 +12,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Sql2oSquadDaoTest {
 
-    private Sql2oSquadDao squadDao;
-    private Connection conn;
+    private static Sql2oSquadDao squadDao; //these variables are now static.
+    private static Sql2oHeroDao heroDao; //these variables are now static.
+    private static Connection conn; //these variables are now static.
 
-    @Before
-    public void setUp() throws Exception {
-        String connectionString = "jdbc:h2:mem:testing;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+    @BeforeClass //changed to @BeforeClass (run once before running any tests in this file)
+    public static void setUp() throws Exception { //changed to static
+        String connectionString = "jdbc:postgresql://localhost:5432/hero_test"; // connect to postgres test database
+        Sql2o sql2o = new Sql2o(connectionString, null, null); // changed user and pass to null
         squadDao = new Sql2oSquadDao(sql2o);
-        conn = sql2o.open();
+        heroDao = new Sql2oHeroDao(sql2o);
+        conn = sql2o.open(); // open connection once before this test file is run
     }
-    @After
-    public void tearDown() throws Exception {
-        conn.close();
+    @After // run after every test
+    public void tearDown() throws Exception { //I have changed
+        System.out.println("clearing database");
+        squadDao.clearAllSquads(); // clear all categories after every test
+        heroDao.clearAllHeroes(); // clear all tasks after every test
+    }
+
+    @AfterClass // changed to @AfterClass (run once after all tests in this file completed)
+    public static void shutDown() throws Exception { //changed to static and shutDown
+        conn.close(); // close connection once after this entire test file is finished
+        System.out.println("connection closed");
     }
     @Test
     public void addingCourseSetsId() throws Exception {
