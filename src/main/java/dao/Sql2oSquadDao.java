@@ -15,7 +15,7 @@ public class Sql2oSquadDao {
 
     Sql2o sql2o = null;
 
-    public List<Hero> getAllHeroesByCategory(int squadId) {
+    public List<Hero> getAllHeroesBySquad(int squadId) {
         try(Connection con = sql2o.open()){
             return con.createQuery("SELECT * FROM heroes WHERE squadId = :squadId")
                     .addParameter("squadId", squadId)
@@ -33,4 +33,6 @@ public class Sql2oSquadDao {
     public List<Squad> getAll() {
         return null;
     }
+
+
 }
