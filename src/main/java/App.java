@@ -153,25 +153,27 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        //get: show a form to update a hero
+        get("/heroes/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Squad> allSquads = squadDao.getAll();
+            model.put("squads", allSquads);
+            Hero hero = heroDao.findById(Integer.parseInt(req.params("id")));
+            model.put("hero", hero);
+            model.put("editHero", true);
+            return new ModelAndView(model, "hero-form.hbs");
+        }, new HandlebarsTemplateEngine());
 
-//        get("/heroes/:id/delete", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfHeroToDelete = Integer.parseInt(req.params("id"));
-//            Hero deleteHero = Hero.findById(idOfHeroToDelete); //change
-//            deleteHero.deleteHero();
-//            res.redirect("/");
-//            return null;
-//        }, new HandlebarsTemplateEngine());
-//
-//        get("/heroes/:id", (req, res) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            int idOfHeroToFind = Integer.parseInt(req.params("id"));
-//            Hero foundHero = Hero.findById(idOfHeroToFind); //change
-//            model.put("hero", foundHero);
-//            return new ModelAndView(model, "hero-detail.hbs");
-//        }, new HandlebarsTemplateEngine());
-
-
+        //post: process a form to update a hero
+        post("/heroes/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int heroToEditId = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("name");
+            int newSquadId = Integer.parseInt(req.queryParams("squadId"));
+            heroDao.update(heroToEditId, newName, newSquadId);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
 
     }
 }
