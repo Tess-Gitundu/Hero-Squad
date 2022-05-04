@@ -175,5 +175,21 @@ public class App {
             return null;
         }, new HandlebarsTemplateEngine());
 
+        //get: delete all squads and all heroes
+        get("/squads/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            squadDao.clearAllSquads();
+            heroDao.clearAllHeroes();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        //get: delete all heroes
+        get("/heroes/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            heroDao.clearAllHeroes();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
     }
 }
