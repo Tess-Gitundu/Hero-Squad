@@ -35,4 +35,6 @@ public class Sql2oSquadDao {
     }
 
 
+    public void update(int idOfSquadToEdit, String newName) {
+    }
 }

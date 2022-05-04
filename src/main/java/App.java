@@ -133,6 +133,26 @@ public class App {
             return new ModelAndView(model, "squad-detail.hbs"); //new
         }, new HandlebarsTemplateEngine());
 
+        //get: show a form to update a squad
+        get("/squads/:id/edit", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("editSquad", true);
+            Squad squad = squadDao.findById(Integer.parseInt(req.params("id")));
+            model.put("squad", squad);
+            model.put("squads", squadDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "squad-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //post: process a form to update a squad
+        post("/squads/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfSquadToEdit = Integer.parseInt(req.params("id"));
+            String newName = req.queryParams("newSquadName");
+            squadDao.update(idOfSquadToEdit, newName);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
 
 //        get("/heroes/:id/delete", (req, res) -> {
 //            Map<String, Object> model = new HashMap<>();
