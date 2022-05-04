@@ -54,11 +54,14 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //hero: process new hero form
-        post("/heroes", (req, res) -> { //URL to make new task on POST route
+        post("/heroes", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            List<Squad> allSquads = squadDao.getAll();
+            model.put("squads", allSquads);
             String name = req.queryParams("name");
-            Hero newHero = new Hero("WonderWoman",33,"Strength","Ego" , 1, 0); //change
-            HeroDao.add(newHero);
+            int squadId = Integer.parseInt(req.queryParams("squadId"));
+            Hero newHero = new Hero("WonderWoman",33,"Strength","Ego" , 1, 0); //ignore the hardcoded categoryId
+            heroDao.add(newHero);
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
