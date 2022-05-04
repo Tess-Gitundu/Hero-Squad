@@ -109,6 +109,7 @@ public class App {
             return new ModelAndView(model, "squad-form.hbs"); //new
         }, new HandlebarsTemplateEngine());
 
+        //post: process new squad form
         post("/squads", (req, res) -> { //new
             Map<String, Object> model = new HashMap<>();
             String name = req.queryParams("name");
