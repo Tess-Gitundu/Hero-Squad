@@ -15,10 +15,19 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
 
 public class App {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
     public static void main(String[] args) {
+
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
-        String connectionString = "jdbc:h2:~/todolist.db;INIT=RUNSCRIPT from 'classpath:db/create.sql'";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+        String connectionString = "jdbc: postgres://tdiutyboavvkpi:92d0699e9e31a22441849675429a0d6aa648ff48b1a09251210b4db870228db1@ec2-52-4-104-184.compute-1.amazonaws.com:5432/d5rhph0u6rc5ut";
+        Sql2o sql2o = new Sql2o(connectionString, "tdiutyboavvkpi", "92d0699e9e31a22441849675429a0d6aa648ff48b1a09251210b4db870228db1");
         Sql2oHeroDao heroDao = new Sql2oHeroDao(sql2o);
         Sql2oSquadDao squadDao = new Sql2oSquadDao(sql2o);
 
