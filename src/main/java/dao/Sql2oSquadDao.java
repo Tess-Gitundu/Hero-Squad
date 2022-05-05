@@ -17,7 +17,7 @@ public class Sql2oSquadDao {
 
     public List<Hero> getAllHeroesBySquad(int squadId) {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM heroes WHERE squadId = :squadId")
+            return con.createQuery("SELECT * FROM hero WHERE squadId = :squadId")
                     .addParameter("squadId", squadId)
                     .executeAndFetch(Hero.class);
         }
